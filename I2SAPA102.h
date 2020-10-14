@@ -60,6 +60,7 @@ CRGB *leds;
     } Lines;
   volatile  int num_strips;
   volatile  int nun_led_per_strip;
+  int clock_pin;
     int *Pins;
     int brigthness;
     int ledType;
@@ -94,7 +95,7 @@ void setBrightness(uint8_t b)
         fillbuffer((uint16_t*)dmaBuffers[1]->buffer,b);
     }
 
- void initled(CRGB *leds,int * Pins,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
+ void initled(CRGB *leds,int * Pins,int clock_pin,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
     {
         //initialization of the pins
         cA=clockMHz;
@@ -110,6 +111,7 @@ void setBrightness(uint8_t b)
         this->runningPixel=false;
         this->ledType=ledType;
         int pinMap[24];
+        this->clock_pin=clock_pin;
         for(int i=0;i<24;i++)
         {
             if(i>=this->num_strips)

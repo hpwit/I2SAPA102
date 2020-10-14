@@ -7,9 +7,10 @@
 #define NUM_LEDS_PER_STRIP 256
 #define NUM_STRIPS 16 
 #define NUM_LEDS NUM_STRIPS * NUM_LEDS_PER_STRIP
+#define CLOCK_PIN 17 //needs to be higher than 16
 #include "I2SAPA102.h"
     
-int Pins[16]={12,2,4,5,0,13,14,15,16,17,18,19,21,22,23,25};
+int Pins[16]={12,2,4,5,0,13,14,15,16,32,18,19,21,22,23,25};
 
 CRGB leds[NUM_LEDS];
 I2SAPA102 controller(0);
@@ -19,7 +20,7 @@ void setup() {
      Serial.begin(115200);
   
 
-controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default Speed 4MHz default clock pin 17 not changeable for now
+controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default Speed 4MHz 
 
 //controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,freq in MHZ);
 //controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,2); //for 2MHZ

@@ -298,7 +298,7 @@ bool I2SAPA102::initParallelOutputMode(const int *pinMap, long sampleRate, int b
             gpio_matrix_out(pinMap[i], deviceBaseIndex[i2sIndex] + i+8, false, false);
         }
     //if (baseClock > -1)
-        gpio_matrix_out(17, deviceClockIndex[i2sIndex], false, false);
+        gpio_matrix_out(clock_pin, deviceClockIndex[i2sIndex], false, false);
     if (wordSelect > -1)
         gpio_matrix_out(wordSelect, deviceWordSelectIndex[i2sIndex], false, false);
 Serial.println("in d1");
