@@ -1,0 +1,32 @@
+{
+    "name": "newISdriver",
+    "description": "F.",
+    "keywords": "led,noise,rgb,math,fast",
+    "authors": [
+        {
+            "name": "yvesBAIZN",
+            "url": "",
+            "maintainer": true
+        }
+    ],
+    
+    "version": "0,0,0",
+    "license": "MIT",
+    "homepage": "http://fastled.io",
+    "frameworks": "arduino",
+    "platforms": "atmelavr, atmelsam, freescalekinetis, nordicnrf51, nxplpc, ststm32, teensy, espressif8266, espressif32, nordicnrf52",
+    "export": {
+        "exclude": [
+            "docs",
+            "extras"
+        ]
+    },
+    "build": {
+        "srcFilter": [
+            "+<*.c>",
+            "+<*.cpp>",
+            "+<*.h>"
+        ],
+        "libArchive": false
+    }
+}
