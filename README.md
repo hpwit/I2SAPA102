@@ -17,7 +17,7 @@ In the FastLED library, for the esp32 and the ws281X leds, the parallel output i
 Like has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. 
 
 ### I do  not want to rewrite all my code FastLED based
-Do not worry in a long term when testing is done, the code will be integrated within the FastlED framework.
+Do not worry in a short term when testing is done, the code will be integrated within the FastlED framework.
 
 
 ## How to use it ?
