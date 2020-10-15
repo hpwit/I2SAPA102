@@ -18,7 +18,7 @@ Like has been done for the I2S parallel output, I have first developped the driv
 
 ## How to use it ?
 
-``
+`
 #include "FastLED.h" //needed to have the CRGB and other fastled functions
 
 
