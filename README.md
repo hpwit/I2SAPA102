@@ -50,7 +50,7 @@ void setup() {
 
         controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default Speed 4MHz default clock pin 17 not changeable for now
 
-        //controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,freq in MHZ); i.e. controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,2); //for 2MHZ
+        //controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP,freq in MHZ); i.e. controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,2); //for 2MHZ
 
 
         fill_solid(leds,100,CRGB::Yellow);
