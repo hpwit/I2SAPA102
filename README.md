@@ -17,6 +17,14 @@ In the FastLED library, for the esp32 and the ws281X leds, the parallel output i
 Like has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. in a long term when testing done, it will be integrated within the FastlED framework
 
 ## How to use it ?
+
+### Install
+Download this library into your favorite IDE library folder and restart it to be abel to access the examples
+
+### Usage
+
+You can find the full code in examples/testI2S
+
 ```C
 #include "FastLED.h" //needed to have the CRGB and other fastled functions
 
@@ -48,6 +56,6 @@ void setup() {
 ...
 ```
 
+## It doesn't work, what do I do ?
+Go to reddit community r/FastLED drop a message u/Yves-bazin
 
-
-# I2SAPA102
