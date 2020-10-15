@@ -14,7 +14,11 @@ If you have strips of different lengths. For instance (200,10,256,900,800) then 
 In the FastLED library, for the esp32 and the ws281X leds, the parallel output is automatically enabled. Two methods are available (RMT or I2S) I will not go into too much details into their difference here. But there is not yet a possiblity to drive clock driven leds like APA102 in parallel output.
 
 ## Goal of this library
-Like has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. in a long term when testing done, it will be integrated within the FastlED framework
+Like has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. 
+
+### I do  not want to rewrite all my code FastLED based
+Do not worry in a long term when testing is done, the code will be integrated within the FastlED framework.
+
 
 ## How to use it ?
 
