@@ -23,7 +23,7 @@ Do not worry in a long term when testing is done, the code will be integrated wi
 ## How to use it ?
 
 ### Install
-Download this library into your favorite IDE library folder and restart it to be abel to access the examples
+Download this library into your favorite IDE library folder and restart it to be able to access the examples
 
 ### Usage
 
