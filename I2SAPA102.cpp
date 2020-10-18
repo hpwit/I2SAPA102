@@ -84,9 +84,9 @@ void IRAM_ATTR I2SAPA102::interrupt(void *arg)
              CRGB *poli=cont->leds+cont->ledToDisplay;
             for(int i = 0; i <cont->num_strips; i++) {
                 //Serial.println((uint32_t)int_leds);
-                pixel[0].bytes[i] = (*poli).b;
-                pixel[1].bytes[i] = (*poli).g;
-                pixel[2].bytes[i] = (*poli).r;
+                pixel[0].bytes[i] = cont->blue_map[(*poli).b];
+                pixel[1].bytes[i] = cont->green_map[(*poli).g];
+                pixel[2].bytes[i] = cont->red_map[(*poli).r];
                 poli+=cont->nun_led_per_strip;
             }
 

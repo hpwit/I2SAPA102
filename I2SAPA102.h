@@ -64,6 +64,9 @@ CRGB *leds;
     int *Pins;
     int brigthness;
     int ledType;
+    uint8_t green_map[256];
+     uint8_t blue_map[256];
+     uint8_t red_map[256];
 
     DMABufferClockI2SAPA102 * allocateDMABuffer(int bytes)
         {
@@ -89,10 +92,20 @@ CRGB *leds;
             return b;
         }    /// hardware index [0, 1]
     I2SAPA102(const int i2sIndex = 0);
-void setBrightness(uint8_t b)
+void setBrightness(uint8_t br)
     {
+    uint8_t b=br/8;
+    uint8_t bri=(31*br)/b;
+    Serial.printf("bn:%d br:%d\n",b,bri);
         fillbuffer((uint16_t*)dmaBuffers[0]->buffer,b);
         fillbuffer((uint16_t*)dmaBuffers[1]->buffer,b);
+        for(int i=0;i<256;i++)
+        {
+            green_map[i]=(uint8_t)((int)(i*bri)/255);
+            blue_map[i]=(uint8_t)((int)(i*bri)/255);
+            red_map[i]=(uint8_t)((int)(i*bri)/255);
+            // Serial.printf("led -  i:%d scale:%d r:%d v:%d b:%d\n",i,m_scale.r,green_map[i],red_map[i],blue_map[i]);
+        }
     }
 
  void initled(CRGB *leds,int * Pins,int clock_pin,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
@@ -168,6 +181,7 @@ void setBrightness(uint8_t b)
        //empty((uint16_t*)dmaBuffers[3]->buffer);
        //empty((uint16_t*)(dmaBuffers[3]->buffer+64);
        //  empty((uint16_t*)dmaBuffers[2]->buffer);
+       setBrightness(255);
         Serial.println("Controller ready");
     }
 
@@ -433,9 +447,9 @@ void setBrightness(uint8_t b)
       // t2=__clock_cycles();
        for(int i = 0; i < num_strips; i++) {
            
-           secondPixel[0].bytes[i] = leds[ledToDisplay+nun_led_per_strip*i].b;
-           secondPixel[1].bytes[i] = leds[ledToDisplay+nun_led_per_strip*i].g;
-           secondPixel[2].bytes[i] = leds[ledToDisplay+nun_led_per_strip*i].r;
+           secondPixel[0].bytes[i] = blue_map[leds[ledToDisplay+nun_led_per_strip*i].b];
+           secondPixel[1].bytes[i] = green_map[leds[ledToDisplay+nun_led_per_strip*i].g];
+           secondPixel[2].bytes[i] = red_map[leds[ledToDisplay+nun_led_per_strip*i].r];
            
        }
         //Serial.println((uint32_t)int_leds);

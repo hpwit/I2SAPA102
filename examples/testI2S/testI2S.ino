@@ -28,7 +28,7 @@ controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default
 
 fill_solid(leds,100,CRGB::Yellow);
 controller.showPixels();
-controller.setBrightness(20); //to be used instead of fastled.setbritghness value 0->31 the default ligtning of the apa102
+controller.setBrightness(20); //to be used instead of fastled.setbritghness value 0--> 255 
 delay(200);
 
  controller.showPixels();
