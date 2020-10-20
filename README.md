@@ -5,7 +5,7 @@
 The APA102 leds are expensives but really high quality and bring more control than their WS281X counterpart. These leds are clock driven, which means that their refresh rate can be really high ( couple of Mhz for APA102 vs 0.8Mhz for WS281X).The direct result is a higher fps which could be important when driving a lot of leds. For the 'slow' WS281X two main drivers have been written for esp32 to drive them in parallel output (automatically implemented in FastLED). This library is a take on driving APA102 strips in full parallel output. 
 
 ## What do I mean by parallel output ?
-The FastLED library allows you to put strips on several pins. But when the `FastLED.show()` is executed, the strips are display one after the other. As a consequence if you declare 8 strips of 256 leds the time needed will be `8 x (time for 256 leds)`. This result in low fps espcially  when using WS2581X. The parallel output method allow to push all the strips at the same time hence in the later example the time needed will only be the time to display 256 leds
+The FastLED library allows you to put strips on several pins. But when the `FastLED.show()` is executed, the strips are display one after the other. As a consequence if you declare 8 strips of 256 leds the time needed will be `8 x (time for 256 leds)`. This result in low fps espcially  when using WS281X. The parallel output method allow to push all the strips at the same time hence in the later example the time needed will only be the time to display 256 leds
 
 ### What about different length strips
 If you have strips of different lengths. For instance (200,10,256,900,800) then the time will be the one of the longuest strip i.e in our exmaple the time to display 900 leds
@@ -14,7 +14,7 @@ If you have strips of different lengths. For instance (200,10,256,900,800) then 
 In the FastLED library, for the esp32 and the ws281X leds, the parallel output is automatically enabled. Two methods are available (RMT or I2S) I will not go into too much details into their difference here. But there is not yet a possiblity to drive clock driven leds like APA102 in parallel output.
 
 ## Goal of this library
-Like has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. 
+Like it has been done for the I2S parallel output, I have first developped the driver 'out of' the FastLED framework to have more control during the development phase. This library uses the CRBG object hence is fully compatible to be used with the FastLED library. 
 
 ### I do  not want to rewrite all my code FastLED based
 Do not worry in a short term when testing is done, the code will be integrated within the FastlED framework.
