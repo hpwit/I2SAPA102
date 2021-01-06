@@ -1,4 +1,4 @@
-/*
+ /*
  Author Yves BAZIN
  change the Speed to adapt to 3.2 Mhz and 32 bits and all the functions to push the leds
  based on the work of bitluni 2019
@@ -114,6 +114,7 @@ void setBrightness(uint8_t br)
         cA=clockMHz;
         cN=(uint8_t)80/cA;
         cB=80%clockMHz;
+        I2S0.conf.tx_start = 0;
         
         dmaBufferCount=2;
         this->leds=leds;

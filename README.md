@@ -48,7 +48,7 @@ int Pins[16]={12,2,4,5,0,13,14,15,16,32,18,19,21,22,23,25}; //list of the pins u
 void setup() {
 
 
-        controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default Speed 4MHz default clock pin 17 not changeable for now
+        controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP); //default Speed 4MHz
 
         //controller.initled(leds,Pins,CLOCK_PIN,NUM_STRIPS,NUM_LEDS_PER_STRIP,freq in MHZ); i.e. controller.initled(leds,Pins,NUM_STRIPS,NUM_LEDS_PER_STRIP,2); //for 2MHZ
 
