@@ -54,7 +54,8 @@ void IRAM_ATTR I2SAPA102::interrupt(void *arg)
 //            return;
 //        }
 //        return;
-                    Lines pixel[3];
+                    // Lines pixel[3];
+                    Lines pixel[4];
        //I2S *cont=(I2S *)arg;
 //        if(((I2S *)arg)->oo==2)
 //        {
@@ -82,16 +83,23 @@ void IRAM_ATTR I2SAPA102::interrupt(void *arg)
         {
              //cont->ledbuff[cont->ledToDisplay]=cont->dmaBufferActive;
              CRGB *poli=cont->leds+cont->ledToDisplay;
+             uint8_t *pbright=cont->brights+cont->ledToDisplay;
             for(int i = 0; i <cont->num_strips; i++) {
                 //Serial.println((uint32_t)int_leds);
-                pixel[0].bytes[i] = cont->blue_map[(*poli).b];
-                pixel[1].bytes[i] = cont->green_map[(*poli).g];
-                pixel[2].bytes[i] = cont->red_map[(*poli).r];
+                // pixel[0].bytes[i] = cont->blue_map[(*poli).b];
+                // pixel[1].bytes[i] = cont->green_map[(*poli).g];
+                // pixel[2].bytes[i] = cont->red_map[(*poli).r];
+                pixel[0].bytes[i] = (*poli).b; // Not using the brightness map - NaLG
+                pixel[1].bytes[i] = (*poli).g; // 
+                pixel[2].bytes[i] = (*poli).r;
+                pixel[3].bytes[i] = (*pbright) | 0xE0; // per-pixel brightness, with header 0b111xxxxx
+               // pixel[3].bytes[i] = 0xE0 | ((*pbright) & 0x1F);
                 poli+=cont->nun_led_per_strip;
+                pbright+=cont->nun_led_per_strip;
             }
 
             
-            
+            cont->transpose16x1_noinline2(pixel[3].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(0+0)));
             cont->transpose16x1_noinline2(pixel[0].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(0+1)));
             cont->transpose16x1_noinline2(pixel[1].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(1+1)));
             cont->transpose16x1_noinline2(pixel[2].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(2+1)));
@@ -129,11 +137,17 @@ void IRAM_ATTR I2SAPA102::interrupt(void *arg)
                 pixel[0].bytes[i] = 0x00;
                 pixel[1].bytes[i] = 0x00;
                 pixel[2].bytes[i] = 0x00;
+                // pixel[3].bytes[i] = 0x00;  
+                // header 0b11100000 used to make a valid 0-signal 
+                // May be better to use the above line without
+                // header (0b00000000), I've only tested it with this:  - NaLG
+                pixel[3].bytes[i] = 0xE0; 
                 poli+=cont->nun_led_per_strip;
             }
 
             
-            
+            cont->transpose16x1_noinline2(pixel[3].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(0+0)));
+            // cont->transpose16x1_noinline2(brights.bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(-1+1)));
             cont->transpose16x1_noinline2(pixel[0].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(0+1)));
             cont->transpose16x1_noinline2(pixel[1].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(1+1)));
             cont->transpose16x1_noinline2(pixel[2].bytes,(uint8_t*)(cont->dmaBuffers[cont->dmaBufferActive]->buffer+16*(2+1)));
