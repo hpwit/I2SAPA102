@@ -52,6 +52,7 @@ class I2SAPA102
    volatile int ledToDisplay;
    volatile int oo=0;
 CRGB *leds;
+uint8_t *brights;
   int dmaBufferCount=2; //we use two buffers
     typedef union {
         uint8_t bytes[16];
@@ -108,7 +109,8 @@ void setBrightness(uint8_t br)
         }
     }
 
- void initled(CRGB *leds,int * Pins,int clock_pin,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
+ // void initled(CRGB *leds,int * Pins,int clock_pin,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
+ void initled(CRGB *leds, uint8_t * brights, int * Pins,int clock_pin,int num_strips,int nun_led_per_strip,uint8_t clockMHz=4,int ledType=1)
     {
         //initialization of the pins
         cA=clockMHz;
@@ -118,6 +120,7 @@ void setBrightness(uint8_t br)
         
         dmaBufferCount=2;
         this->leds=leds;
+        this->brights=brights;
         this->nun_led_per_strip=nun_led_per_strip;
         this->num_strips=num_strips;
         this->Pins=Pins;
@@ -427,7 +430,8 @@ void setBrightness(uint8_t br)
        stopSignal=false;
        //pixelsToDisplay(allpixels);
        Lines firstPixel[3];
-       Lines secondPixel[3];
+       // Lines secondPixel[3];
+       Lines secondPixel[4];
         //Serial.println((uint32_t) & (dmaBuffers[2]->descriptor));
         //for ws28012
         /*
@@ -451,11 +455,13 @@ void setBrightness(uint8_t br)
            secondPixel[0].bytes[i] = blue_map[leds[ledToDisplay+nun_led_per_strip*i].b];
            secondPixel[1].bytes[i] = green_map[leds[ledToDisplay+nun_led_per_strip*i].g];
            secondPixel[2].bytes[i] = red_map[leds[ledToDisplay+nun_led_per_strip*i].r];
+           secondPixel[3].bytes[i] = brights[ledToDisplay+nun_led_per_strip*i] | 0xE0;
            
        }
         //Serial.println((uint32_t)int_leds);
        
       // ledToDisplay++;
+       transpose16x1_noinline2(secondPixel[3].bytes,(uint8_t*)(dmaBuffers[0]->buffer+16*(0+0)));
        transpose16x1_noinline2(secondPixel[0].bytes,(uint8_t*)(dmaBuffers[0]->buffer+16*(0+1)));
         transpose16x1_noinline2(secondPixel[1].bytes,(uint8_t*)(dmaBuffers[0]->buffer+16*(1+1)));
         transpose16x1_noinline2(secondPixel[2].bytes,(uint8_t*)(dmaBuffers[0]->buffer+16*(2+1)));
